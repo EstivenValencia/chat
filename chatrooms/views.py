@@ -11,6 +11,12 @@ class Index(View):
 	def get(self, request):
 		return render(request, 'chatrooms/index.html')
 
+class RetrieveRoom(APIView):
+    def get(self, request):
+        room = ChatRoom.objects.all()
+        serializer = ChatRoomSerializer(room, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 class Room(APIView):
 	def get(self, request, room_name):
 		room = ChatRoom.objects.filter(name=room_name).first()

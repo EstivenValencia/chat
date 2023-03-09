@@ -11,4 +11,4 @@ class Chat(models.Model):
 	room = models.ForeignKey('ChatRoom', on_delete=models.CASCADE)
 
 class ChatRoom(models.Model):
-	name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
