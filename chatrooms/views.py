@@ -5,16 +5,17 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from .models import Chat, ChatRoom
+from django.contrib.auth.models import User
 from .serializers import *
 
 class Index(View):
 	def get(self, request):
 		return render(request, 'chatrooms/index.html')
 
-class RetrieveRoom(APIView):
+class RetrieveUser(APIView):
     def get(self, request):
-        room = ChatRoom.objects.all()
-        serializer = ChatRoomSerializer(room, many=True)
+        room = User.objects.all()
+        serializer = UserSerializer(room, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class Room(APIView):
