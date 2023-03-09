@@ -18,12 +18,14 @@ class RetrieveRoom(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class Room(APIView):
-	def get(self, request, room_name):
-		room = ChatRoom.objects.filter(name=room_name).first()
+	def get(self, request, user_id_from, user_id_to):
+		room = list(ChatRoom.objects.filter(name=user_id_from+"_"+user_id_to))
+		if len(room) <= 0:
+			room = list(ChatRoom.objects.filter(name=user_id_to+"_"+user_id_from))
+			if len(room) <= 0:
+				room = ChatRoom(name=user_id_from+"_"+user_id_to)
+				room.save()
 		chats = Chat.objects.filter(room=room)
 		serializer = ChatSerializer(chats, many=True)
-		if room is False:
-			room = ChatRoom(name=room_name)
-			room.save()
-		dict = {"room_name":room_name, "chats":serializer.data}
+		dict = {"room_name":room.name, "chats":serializer.data}
 		return Response(dict, status=status.HTTP_200_OK)
