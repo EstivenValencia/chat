@@ -7,12 +7,12 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = "__all__"
 
-class ChatSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Chat
-        fields = "__all__"
-        
 class ChatRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChatRoom
+        fields = "__all__"
+        
+class ChatMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChatMessage
         fields = "__all__"
